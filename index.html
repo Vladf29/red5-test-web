@@ -46,54 +46,6 @@
     </script>
 
     <script>
-      function Red5Manager(ipHost, robotId) {
-        this.config = {
-          host: "stream.tchupi.com",
-          app: "live",
-          rtc: {
-            host: "stream.tchupi.com",
-            app: "streammanager",
-            protocol: "wss",
-            port: 443,
-
-            rtcConfiguration: {
-              iceServers: [
-                {
-                  urls: "stun:stun2.l.google.com:19302"
-                }
-              ],
-              iceCandidatePoolSize: 2,
-              bundlePolicy: "max-bundle"
-            },
-            streamName: robotId, //"robot100",
-            mediaElementId: "red5pro-subscriber",
-            connectionParams: {
-              host: ipHost, //"52.15.108.70",
-              app: "live"
-            }
-          }
-        };
-
-        this.rtcSubscriber = new red5prosdk.RTCSubscriber();
-      }
-
-      Red5Manager.prototype.subscribe = function() {
-        this.rtcSubscriber
-          .init(this.config.rtc)
-          .then(() => {
-            return this.rtcSubscriber.subscribe();
-          })
-          .then(res => {
-            console.log("Playing!");
-            sendMessageRN("video render started");
-          })
-          .catch(err => {
-            console.log("Could not play: ", err);
-          });
-      };
-
-      // const r5 = new Red5Manager("52.15.108.70", "robot100");
-      // r5.subscribe();
 
       function subscribe(ipHost, robotId) {
         const rtcSubscriber = new red5prosdk.RTCSubscriber();
